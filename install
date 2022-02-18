@@ -26,11 +26,11 @@ echo "---> Download the DM-MEGA NODE Oled driver"
 sudo git clone https://github.com/f5swb/dvmega_OLED.git
 sleep 1
 echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
-sudo cp /home/dvmega_OLED/MMDVMHost /usr/local/bin/MMDVMHost
+sudo cp /dvmega_OLED/MMDVMHost /usr/local/bin/MMDVMHost
 sleep 1
-chmod 777 libArduiPi_OLED.so.1.0
-sudo rm -r /usr/local/lib/ArduiPi_OLED.so.1.0
-sudo cp ArduiPi_OLED.so.1.0 /usr/local/lib/ArduiPi_OLED.so.1.0
+sudo chmod 777 /dvmega_OLED/libArduiPi_OLED.so.1.0
+sudo cp /dvmega_OLED/libArduiPi_OLED.so.1.0 /usr/local/lib/libArduiPi_OLED.so.1.0
+sleep 1
 echo -e "---> Enable the read-only system disk\n"
 sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> Now restarting MMDVMHost service"
