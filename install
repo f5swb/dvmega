@@ -28,6 +28,9 @@ sleep 1
 echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
 sudo cp /home/dvmega_OLED/MMDVMHost /usr/local/bin/MMDVMHost
 sleep 1
+chmod 777 libArduiPi_OLED.so.1.0
+sudo rm -r /usr/local/lib/ArduiPi_OLED.so.1.0
+sudo cp ArduiPi_OLED.so.1.0 /usr/local/lib/ArduiPi_OLED.so.1.0
 echo -e "---> Enable the read-only system disk\n"
 sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> Now restarting MMDVMHost service"
@@ -35,10 +38,10 @@ sudo systemctl start mmdvmhost
 sleep 1
 echo -e "---> Cleaning the repository files"
 cd ..
-sudo rm -r /home/dvmega_OLED
+#sudo rm -r /home/dvmega_OLED
 echo "---> The system is now updated"
 sleep 1
 echo -e "\033[31m"
 echo -e "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD screen saver !\n"
 echo -e "\033[33mGood trafic with the GENESIS NODE\n"
-sudo rm -r /home/dvmega
+#sudo rm -r /home/dvmega
