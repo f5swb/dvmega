@@ -21,7 +21,8 @@ if [ ! -f /usr/local/bin/MMDVMHost.original ] ; then
 sudo cp /usr/local/bin/MMDVMHost /usr/local/bin/MMDVMHost.original
 fi
 sleep 1
-echo -e "---> Download the DM-MEGA NODE Oled driver\n"
+echo " " 
+echo "---> Download the DM-MEGA NODE Oled driver"
 sudo git clone https://github.com/f5swb/dvmega_OLED.git
 sleep 1
 echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
