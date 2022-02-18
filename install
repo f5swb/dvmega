@@ -38,7 +38,7 @@ sudo systemctl start mmdvmhost
 sleep 1
 echo -e "---> Cleaning the repository files"
 cd ..
-#sudo rm -r /home/dvmega
+sudo rm -r /home/dvmega
 echo "---> The system is now updated"
 sleep 1
 echo -e "\033[31m"
