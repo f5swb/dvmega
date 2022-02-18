@@ -21,7 +21,7 @@ if [ ! -f /usr/local/bin/MMDVMHost.original ] ; then
 sudo cp /usr/local/bin/MMDVMHost /usr/local/bin/MMDVMHost.original
 fi
 sleep 1
-echo "---> Download the DM-MEGA NODE Oled driver\n"
+echo -e "---> Download the DM-MEGA NODE Oled driver\n"
 sudo git clone https://github.com/f5swb/dvmega_OLED.git
 sleep 1
 echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
@@ -32,8 +32,11 @@ sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o r
 echo "---> Now restarting MMDVMHost service"
 sudo systemctl start mmdvmhost
 sleep 1
+echo -e "---> Cleaning the repository files"
+sudo rm -r /dvmega_OLED
 echo "---> The system is now updated"
 sleep 1
 echo -e "\033[31m"
 echo -e "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD screen saver !\n"
 echo -e "\033[33mGood trafic with the GENESIS NODE\n"
+sudo rm -r /dvmega
