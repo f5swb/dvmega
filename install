@@ -12,7 +12,7 @@ read -p ""
 echo "---> Enable the read-write system disk"
 sudo mount -o remount,rw / ; sudo mount -o remount,rw /boot
 sleep 1
-echo "---> Stopping MMDVMHost service"
+echo -e "---> Stopping MMDVMHost service\n"
 sudo systemctl stop mmdvmhost.timer
 sudo systemctl stop mmdvmhost
 sleep 1
@@ -27,7 +27,7 @@ sleep 1
 echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
 sudo cp /home/dvmega_OLED/MMDVMHost /usr/local/bin/MMDVMHost
 sleep 1
-echo "---> Enable the read-only system disk\"
+echo "---> Enable the read-only system disk\n"
 sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> Now restarting MMDVMHost service"
 sudo systemctl start mmdvmhost
