@@ -28,12 +28,13 @@ sleep 1
 echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
 sudo cp /home/dvmega_OLED/MMDVMHost /usr/local/bin/MMDVMHost
 sleep 1
-echo "---> Enable the read-only system disk\n"
+echo -e "---> Enable the read-only system disk\n"
 sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> Now restarting MMDVMHost service"
 sudo systemctl start mmdvmhost
 sleep 1
 echo -e "---> Cleaning the repository files"
+cd ..
 sudo rm -r /home/dvmega_OLED
 echo "---> The system is now updated"
 sleep 1
