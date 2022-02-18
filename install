@@ -12,7 +12,7 @@ read -p ""
 echo "---> Enable the read-write system disk"
 sudo mount -o remount,rw / ; sudo mount -o remount,rw /boot
 sleep 1
-echo -e "---> Stopping MMDVMHost service\n"
+echo "---> Stopping MMDVMHost service"
 sudo systemctl stop mmdvmhost.timer
 sudo systemctl stop mmdvmhost
 sleep 1
@@ -24,16 +24,16 @@ sleep 1
 echo "---> Download the DM-MEGA NODE Oled driver\n"
 sudo git clone https://github.com/f5swb/dvmega_OLED.git
 sleep 1
-echo "---> Copy the DM-VEGA NODE Oled driver\n" 
+echo -e "---> Copy the DM-VEGA NODE Oled driver\n" 
 sudo cp /home/dvmega_OLED/MMDVMHost /usr/local/bin/MMDVMHost
 sleep 1
-echo " ---> Enable the read-only system disk\n"
+echo "---> Enable the read-only system disk\"
 sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
-echo -e "---> Now restarting MMDVMHost service\n"
+echo "---> Now restarting MMDVMHost service"
 sudo systemctl start mmdvmhost
 sleep 1
-echo -e "---> The system is now updated\n"
+echo "---> The system is now updated"
 sleep 1
 echo -e "\033[31m"
-echo "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD screen saver !"
+echo -e "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD screen saver !\n"
 echo -e "\033[33mGood trafic with the GENESIS NODE\n"
