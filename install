@@ -31,14 +31,14 @@ sleep 1
 #sudo chmod 777 /home/dvmega/dvmega_OLED/libArduiPi_OLED.so.1.0
 #sudo cp /home/dvmega/dvmega_OLED/libArduiPi_OLED.so.1.0 /usr/local/lib/libArduiPi_OLED.so.1.0
 #sleep 1
-echo -e "---> Enable the read-only system disk\n"
-sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> Now restarting MMDVMHost service"
 sudo systemctl start mmdvmhost
 sleep 1
 echo -e "---> Cleaning the repository files"
 cd ..
 sudo rm -r /home/dvmega
+echo -e "---> Enable the read-only system disk\n"
+sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> The system is now updated"
 sleep 1
 echo -e "\033[31m"
