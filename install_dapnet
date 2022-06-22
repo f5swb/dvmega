@@ -30,7 +30,7 @@ sleep 1
 echo -e "---> Cleaning the repository files\n"
 cd ..
 sudo rm -r /home/dvmega
-cd /home
+cd ..
 echo -e "---> Checking if the file is here\n"
 ls
 echo " "
