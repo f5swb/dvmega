@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-cd /home/
+cd /home/dvmega
 echo -e "\033[33m"
 echo "########################################"
 echo "## DV-MEGA LTD GENESIS DAPNET INSTALL ##"
@@ -16,8 +16,8 @@ echo -e "---> Stopping MMDVMHost service\n"
 sudo systemctl stop mmdvmhost.timer
 sudo systemctl stop mmdvmhost
 sleep 1
-echo "---> Download the DV-MEGA DAPNET option"
-sudo git clone https://github.com/f5swb/dvmega.git
+#echo "---> Download the DV-MEGA DAPNET option"
+#sudo git clone https://github.com/f5swb/dvmega.git
 sleep 1
 echo -e "---> Copy the DM-VEGA DAPNET option\n" 
 sudo cp /home/dvmega/dapnet-grep /home/
