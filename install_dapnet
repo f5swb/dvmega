@@ -1,0 +1,40 @@
+#!/bin/bash
+clear
+cd /home/
+echo -e "\033[33m"
+echo "########################################"
+echo "## DV-MEGA LTD GENESIS DAPNET INSTALL ##"
+echo "########################################"
+echo -e "\033[31m    YOUR SYSTEM MUST BE IN READWRITE MODE"
+echo -e "if not the case, please press ctrl-c to stop"
+echo -e "\033[33m    else press ENTER to start the process"
+read -p ""
+echo "---> Enable the read-write system disk"
+sudo mount -o remount,rw / ; sudo mount -o remount,rw /boot
+sleep 1
+echo -e "---> Stopping MMDVMHost service\n"
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost
+sleep 1
+echo "---> Download the DM-MEGA DAPNET option"
+sudo git clone https://github.com/f5swb/dvmega.git
+sleep 1
+echo -e "---> Copy the DM-VEGA DAPNET option\n" 
+sudo cp /home/dvmega/dapnet-grep /home/
+sleep 1
+sudo chmod +x /home/dapnet-grep
+sleep 1
+echo "---> Now restarting MMDVMHost service"
+sudo systemctl start mmdvmhost
+sleep 1
+echo -e "---> Cleaning the repository files"
+cd ..
+sudo rm -r /home/dvmega
+echo -e "---> Enable the read-only system disk\n"
+sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
+echo "---> The system is now updated"
+sleep 1
+echo -e "\033[31m"
+echo -e "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD DAPNET function !\n"
+echo -e "\033[33mGood trafic with the GENESIS NODE DAPNET\n"
+cd home
