@@ -16,7 +16,7 @@ echo -e "---> Stopping MMDVMHost service\n"
 sudo systemctl stop mmdvmhost.timer
 sudo systemctl stop mmdvmhost
 sleep 1
-echo "---> Download the DM-MEGA DAPNET option"
+echo "---> Download the DV-MEGA DAPNET option"
 sudo git clone https://github.com/f5swb/dvmega.git
 sleep 1
 echo -e "---> Copy the DM-VEGA DAPNET option\n" 
