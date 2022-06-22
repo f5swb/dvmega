@@ -30,7 +30,7 @@ sleep 1
 echo -e "---> Cleaning the repository files\n"
 cd ..
 sudo rm -r /home/dvmega
-cd ..
+cd home
 echo -e "---> Checking if the file is here\n"
 ls
 echo " "
@@ -41,4 +41,4 @@ sleep 1
 echo -e "\033[31m"
 echo -e "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD DAPNET function !\n"
 echo -e "\033[33mGood trafic with the GENESIS NODE DAPNET\n"
-
+ls
