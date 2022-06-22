@@ -24,12 +24,16 @@ sudo cp /home/dvmega/dapnet-grep /home/
 sleep 1
 sudo chmod +x /home/dapnet-grep
 sleep 1
-echo "---> Now restarting MMDVMHost service"
+echo -e "---> Now restarting MMDVMHost service\n"
 sudo systemctl start mmdvmhost
 sleep 1
-echo -e "---> Cleaning the repository files"
+echo -e "---> Cleaning the repository files\n"
 cd ..
 sudo rm -r /home/dvmega
+cd /home
+echo -e "---> Checking if the file is here\n"
+ls
+echo " "
 echo -e "---> Enable the read-only system disk\n"
 sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
 echo "---> The system is now updated"
@@ -37,4 +41,4 @@ sleep 1
 echo -e "\033[31m"
 echo -e "Remember that if you do a pistar-update & pistar-upgrade you will loose the DV-MEGA LTD DAPNET function !\n"
 echo -e "\033[33mGood trafic with the GENESIS NODE DAPNET\n"
-cd home
+
