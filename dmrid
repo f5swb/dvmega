@@ -1,0 +1,89 @@
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+CTYDAT=/usr/local/etc/cty.dat
+USERCSV=/usr/local/etc/user.csv
+
+fnDMR_DOWNLOAD_USERCSV()
+{
+  # If the user.csv file is missing, or is older than 7 days,
+  # then download a new one from the web.
+#  if [[ ! -f "${USERCSV}" ]] || [[ -n "$(find "${USERCSV}" -mtime 0)" ]] || [[ ${GET_CSV_NOW} -eq 1 ]]
+#  then
+    echo -e "\nDownloading latest DMR user.csv file..."
+    sudo mount -o remount,rw / 2> /dev/null
+#    if sudo wget -q --show-progress --progress=bar:force:noscroll https://database.radioid.net/static/user.csv -O "${USERCSV}.tmp"
+    if sudo wget -q https://database.radioid.net/static/user.csv -O "${USERCSV}.tmp"
+    then
+      echo "Applying the updated file..."
+      if sudo mv "${USERCSV}.tmp" "${USERCSV}" && sudo chown pi-star.pi-star "${USERCSV}"
+      then
+        echo "Finished"
+        echo
+      else
+        echo "There was a problem applying the update.  Will continue without it."
+        sleep 2
+      fi
+    else
+      echo "Unable to retrieve latest user.csv.  Will continue without it."
+      sleep 2
+    fi
+    sync
+    sync
+    sync
+    sudo mount -o remount,ro / 2> /dev/null
+exit 0
+
+#  fi
+}
+
+#----------
+fnYSF_DOWNLOAD_CTYDAT()
+{
+  # If the cty.dat file is missing, or is older than 30 days,
+  # then download a new one from the web.
+#  if [[ ! -f "${CTYDAT}" ]] || [[ -n "$(find "${CTYDAT}" -mtime +30)" ]] || [[ ${GET_DAT_NOW} -eq 1 ]]
+#  then
+    echo -e "\nDownloading latest DXCC cty.dat file..."
+    sudo mount -o remount,rw / 2> /dev/null
+
+    BIGCTYZIP="$(curl -s "https://www.country-files.com/category/big-cty/" | grep "\[download\]" | sort -nr | head -1 | cut -f2 -d"\"")"
+    if [[ -n "${BIGCTYZIP}" ]]
+    then
+
+      mkdir /tmp/bigctydir 2>/dev/null
+      if sudo wget -q --show-progress --progress=bar:force:noscroll "${BIGCTYZIP}" -O "/tmp/bigctydir/bigcty.zip"
+      then
+        echo "Applying the updated file..."
+        sudo unzip /tmp/bigctydir/bigcty.zip -d /tmp/bigctydir >/dev/null 2>&1
+        if sudo cp /tmp/bigctydir/cty.dat "${CTYDAT}" && sudo chown pi-star.pi-star "${CTYDAT}"
+        then
+          sudo rm -r /tmp/bigctydir 2> /dev/null
+          echo "Update complete."
+          echo
+        else
+          echo "There was a problem applying the update.  Will continue without it."
+          sleep 2
+        fi
+      else
+        echo "Unable to retrieve latest cty.dat.  Will continue without it."
+        sleep 2
+      fi
+      sync
+      sync
+      sync
+      sudo mount -o remount,ro / 2> /dev/null
+    else
+      echo "Unable to determine latest available cty.dat.  Will continue without it."
+      sleep 2
+    fi
+#  fi
+}
+
+fnDMR_DOWNLOAD_USERCSV >> /var/log/pi-star/dmrid_update.log 2>&1
+fnDMR_DOWNLOAD_USERCSV
+
+
+
+
+
+
+
