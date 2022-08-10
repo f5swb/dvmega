@@ -1,0 +1,43 @@
+#!/bin/bash
+clear
+cd /home/pi-star/dvmega
+echo -e "\033[33m"
+echo "########################################"
+echo "## DV-MEGA LTD GENESIS DMR-ID INSTALL ##"
+echo "########################################"
+echo -e "\033[31m    YOUR SYSTEM MUST BE IN READWRITE MODE"
+echo -e "if not the case, please press ctrl-c to stop"
+echo -e "\033[33m    else press ENTER to start the process"
+read -p ""
+echo "---> Enable the read-write system disk"
+sudo mount -o remount,rw / ; sudo mount -o remount,rw /boot
+sleep 1
+echo -e "---> Stopping MMDVMHost service\n"
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost
+sleep 1
+echo "---> Download the DV-MEGA DMR-ID option"
+sudo git clone https://github.com/f5swb/dvmega.git
+sleep 1
+echo -e "---> Copy the DM-VEGA DMR-ID option\n" 
+sudo cp /home/pi-star/dvmega/dmrid /home/
+sleep 1
+sudo chmod +x /home/dmrid
+sleep 1
+echo -e "---> Now restarting MMDVMHost service\n"
+sudo systemctl start mmdvmhost
+sleep 1
+echo -e "---> Cleaning the repository files\n"
+cd ..
+sudo rm -r /home/pi-star/dvmega
+cd /home
+echo -e "---> Checking if the file is here\n"
+ls
+echo " "
+echo -e "---> Enable the read-only system disk\n"
+sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
+echo "---> The system is now updated"
+sleep 1
+echo -e "\033[31m"
+echo -e "\033[33mGood trafic with the GENESIS NODE DMR ID UPDATE\n"
+
