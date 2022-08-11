@@ -1,0 +1,226 @@
+#!/bin/bash
+#
+#
+#  F5SWB  08-10-2022
+#
+export NEWT_COLORS='
+root=,black
+#window=blue,blue
+#border=white,black
+#textbox=white,red
+#button=black,white
+'
+HEIGHT=15
+WIDTH=40
+
+
+while : ; do
+
+choix=$(whiptail --title "DV-MEGA M0KSP install Menu 1.1 "  --menu "   " 14 70 6 \
+1 "  Install the DV-MEGA NEXTION SPECIAL driver" \
+2 "  Install the DV-MEGA DAPNET script to get the DAPNET traffic" \
+3 "  Install the DV-MEGA DMR-ID script to get the DMR-ID update" \
+4 "  Not yet implemented"  \
+5 "  Not yes implemented"  3>&1 1>&2 2>&3)
+
+exitstatus=$?
+
+#we catch the choice
+#exitstatus=$?
+if [ $exitstatus = 0 ]; then
+    echo "your choice :" $choix
+else
+    echo "choice canceled."; break;
+fi
+
+verify_dvrepository()
+(
+echo -e "\033[33m"
+clear
+sudo mount -o remount,rw /; 2> /dev/null
+sleep 2
+if [ -d "/home/pi-star/dvmega" ];then
+ echo "Le dossier1 existe !";
+ #sudo rm -r /home/pi-star/dvmega
+ echo " on l'efface"
+ sleep 2
+ echo "on le retelecharge"
+ clear
+ #sudo git clone https://github.com/f5swb/dvmega.git
+else
+ clear
+ echo "Le dossier1 n'existe pas !"
+ #sudo git clone https://github.com/f5swb/dvmega.git
+fi
+)
+
+copydmrid()
+{
+clear
+sleep 3
+cd /home/pi-star/dvmega/
+echo -e "\033[33m"
+echo "########################################"
+echo "## DV-MEGA LTD GENESIS DMR-ID INSTALL ##"
+echo "########################################"
+echo "---> Enable the read-write system disk"
+sudo mount -o remount,rw /; 2> /dev/null
+sleep 2
+echo -e "---> Stopping MMDVMHost service\n"
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost
+sleep 1
+echo -e "---> Copy the DV-MEGA DMR-ID option\n"
+sudo cp /home/pi-star/dvmega/dmrid /home/
+sleep 1
+sudo chmod +x /home/dmrid
+sleep 1
+echo -e "---> Now restarting MMDVMHost service\n"
+sudo systemctl start mmdvmhost
+sleep 1
+#echo -e "---> Cleaning the repository files\n"
+#cd ..
+#sudo rm -r /home/pi-star/dvmega
+#cd /home
+#echo -e "---> Checking if the file is here\n"
+#ls
+echo " "
+echo -e "---> Enable the read-only system disk\n"
+sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
+echo "---> The system is now updated"
+echo -e "\033[31m"
+echo -e "\033[33mGood trafic with the GENESIS NODE DMR-ID UPDATE\n"
+sleep 3
+}
+
+copydapnet()
+{
+clear
+sleep 3
+cd /home/pi-star/dvmega
+echo -e "\033[33m"
+echo "########################################"
+echo "## DV-MEGA LTD GENESIS DAPNET INSTALL ##"
+echo "########################################"
+echo "---> Enable the read-write system disk"
+sudo mount -o remount,rw /; 2> /dev/null
+sleep 2
+echo -e "---> Stopping MMDVMHost service\n"
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost
+sleep 1
+echo -e "---> Copy the DM-VEGA DAPNET option\n" 
+sudo cp /home/pi-star/dvmega/dapnet-grep /home/
+sleep 1
+sudo chmod +x /home/dapnet-grep
+sleep 1
+echo -e "---> Now restarting MMDVMHost service\n"
+sudo systemctl start mmdvmhost
+sleep 1
+#echo -e "---> Cleaning the repository files\n"
+#cd ..
+#sudo rm -r /home/pi-star/dvmega
+#cd /home
+#echo -e "---> Checking if the file is here\n"
+#ls
+#echo " "
+echo -e "---> Enable the read-only system disk\n"
+sudo sync ; sudo sync ; sudo sync ; sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot 
+echo "---> The system is now updated"
+echo -e "\033[31m"
+echo -e "\033[33mGood trafic with the GENESIS NODE DAPNET\n"
+sleep 3
+}
+
+copyNEXTIONdriver()
+{
+cd /tmp
+echo -e "\033[33m"
+echo "########################################"
+echo "## DV-MEGA LTD GENESIS NEXTION DRIVER ##"
+echo "########################################"
+echo "---> Enable the read-write system disk"
+sudo mount -o remount,rw /; 2> /dev/null
+sleep 2
+echo -e "---> Stopping MMDVMHost service\n"
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost
+sleep 1
+echo -e "---> Erase the poor NEXTION DRIVER\n"
+sudo rm /usr/local/bin/NextionDriver
+echo -e "---> Download the DM-VEGA NEXTION DRIVER\n"
+sudo git clone https://github.com/f5swb/NextionDriverInstaller.git
+sleep 2
+sudo NextionDriverInstaller/install.sh
+}
+
+installNEXTION()
+{
+whiptail --title "Install NEXTION DRIVER" --yesno "Do you want to install the NEXTION DRIVER ? " 10 60
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+ copyNEXTIONdriver
+ # echo "install ok"
+else
+ dvmega
+ echo "==> vous avez annule"; exit 1 ;
+fi
+}
+
+installDMRid()
+{
+whiptail --title "Install DMR-ID script" --yesno "Do you want to install the DMR-ID script ? " 10 60
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+ #verify_dvrepository
+ copydmrid
+# echo "install ok"
+else
+ dvmega
+ echo "==> vous avez annule"; exit 1 ;
+fi
+}
+
+
+installDAPNET()
+{
+whiptail --title "Install DAPNET script" --yesno "Do you want to install the DAPNET script ? " 10 60
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+ #verify_dvrepository
+ copydapnet
+# echo "install ok"
+else
+ dvmega
+ echo "==> vous avez annule"; exit 1 ;
+fi
+}
+
+
+# case : action according to the choice
+
+case $choix in
+
+1)
+installNEXTION
+;;
+
+2)
+installDAPNET
+;;
+
+3)
+installDMRid
+;;
+
+4)
+;;
+
+5)
+;;
+
+esac
+
+done
+exit 0
+
