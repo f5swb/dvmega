@@ -11,7 +11,9 @@ fnDMR_DOWNLOAD_USERCSV()
     echo -e "\nDownloading latest DMR user.csv file..."
     sudo mount -o remount,rw / 2> /dev/null
 #    if sudo wget -q --show-progress --progress=bar:force:noscroll https://database.radioid.net/static/user.csv -O "${USERCSV}.tmp"
-    if sudo wget -q https://database.radioid.net/static/user.csv -O "${USERCSV}.tmp"
+    if sudo wget --no-check-certificate -q https://database.radioid.net/static/user.csv -O "${USERCSV}.tmp"
+    #if sudo wget --no-check-certificate --show-progress --progress=bar:force:noscroll https://database.radioid.net/static/user.csv
+
     then
       echo "Applying the updated file..."
       if sudo mv "${USERCSV}.tmp" "${USERCSV}" && sudo chown pi-star.pi-star "${USERCSV}"
